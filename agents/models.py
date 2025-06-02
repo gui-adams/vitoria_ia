@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.html import format_html
 
 class Agent(models.Model):
     id = models.CharField(primary_key=True, max_length=100)
@@ -9,13 +10,11 @@ class Agent(models.Model):
         return self.title
 
     def iframe_code(self):
-        return (
-            '<div style="position:relative; width:100%; height:100%; overflow:hidden;">'
-            '  <iframe src="https://vitoria.simpleway.tech/{id}/" '
-            '          style="position:absolute; top:0; left:0; width:100%; height:100%; '
-            '                 border:none; overflow:hidden;" '
-            '          allowfullscreen>'
-            '  </iframe>'
-            '</div>'
-        ).format(id=self.id)
+        return format_html(
+            '<iframe src="https://vitoria.simpleway.tech/{id}/" '
+            'style="width:100%; height:100%; border:none; display:block;" '
+            'allowfullscreen>'
+            '</iframe>',
+            id=self.id
+        )
     iframe_code.short_description = "Código do Iframe"
