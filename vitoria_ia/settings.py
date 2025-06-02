@@ -70,7 +70,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'vitoria_ia.wsgi.application'
 
-if os.environ.get("USE_POSTGRES") == "TRUE":
+if not DEBUG:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
@@ -88,7 +88,7 @@ else:
             'NAME': BASE_DIR / "db.sqlite3",
         }
     }
-
+    
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
