@@ -4,12 +4,13 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECRET_KEY para produção — utilize variável de ambiente
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'troque-por-uma-chave-forte')
-
+SECRET_KEY = os.environ.get(
+    'DJANGO_SECRET_KEY',
+    'django-insecure-ru$k#vg9gj3bt7)dz7s2%x&@k_c!2cvx5+6t07p#r7q^5&^7oj'
+)
 # NÃO USE DEBUG EM PRODUÇÃO!
 DEBUG = False
 
-# Coloque aqui o(s) domínio(s) do seu site
 ALLOWED_HOSTS = [
     'vitoria.simpleway.tech',  # Seu domínio principal
     'localhost',
@@ -104,11 +105,10 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Segurança extra recomendada para produção:
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-SECURE_HSTS_SECONDS = 31536000
-SECURE_HSTS_PRELOAD = True
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-X_FRAME_OPTIONS = 'DENY'
+
+
+if not DEBUG:
+	SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+	SECURE_SSL_REDIRECT = True
+	SESSION_COOKIE_SECURE = True
+	CSRF_COOKIE_SECURE = True
