@@ -9,5 +9,5 @@ class Agent(models.Model):
         return self.title
 
     def iframe_code(self):
-        return f'<iframe src="https://SEU_DOMINIO/agent/{self.id}/" width="400" height="600"></iframe>'
+        return f'<iframe src="https://vitoria.simpleway.tech/{self.id}/" width="400" height="600"></iframe>'
     iframe_code.short_description = "Código do Iframe"
