@@ -76,7 +76,7 @@ if os.environ.get("USE_POSTGRES") == "TRUE":
             'ENGINE': 'django.db.backends.postgresql',
             'NAME': 'vitoria_db',
             'USER': 'vitoria_user',
-            'PASSWORD': 'SenhaForteAqui',
+            'PASSWORD': 'windows99',
             'HOST': 'localhost',
             'PORT': '5432',
         }
