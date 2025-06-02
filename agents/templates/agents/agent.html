@@ -5,19 +5,20 @@
     <title>Chat: {{ agent.title }}</title>
     <link rel="stylesheet" href="/static/chatbot.css">
     <style>
-      body {
-          font-family: 'Arial', sans-serif;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          height: 100vh;
+      /* Faz html e body ocuparem 100% do contêiner do iframe */
+      html, body {
+          width: 100%;
+          height: 100%;
           margin: 0;
+          padding: 0;
           background-color: #e8f0fe;
+          font-family: 'Arial', sans-serif;
       }
+
+      /* O contêiner do chat passa a preencher 100% do espaço */
       #chat-container {
-          width: 400px;
-          height: 600px;
+          width: 100%;
+          height: 100%;
           border: 1px solid #ccc;
           border-radius: 15px;
           background: white;
@@ -26,6 +27,8 @@
           box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
           overflow: hidden;
       }
+
+      /* Área onde as mensagens aparecem */
       #messages {
           flex: 1;
           padding: 10px;
@@ -36,6 +39,7 @@
           flex-direction: column;
           gap: 8px;
       }
+
       .message {
           padding: 10px 16px;
           margin: 2px 0;
@@ -46,6 +50,7 @@
           display: inline-block;
           white-space: pre-line;
       }
+
       .message.user {
           background: #3587ff;
           color: white;
@@ -56,6 +61,7 @@
           border-top-left-radius: 14px;
           border-bottom-left-radius: 14px;
       }
+
       .message.bot {
           background: #f4f6fb;
           color: #222;
@@ -66,6 +72,8 @@
           border-top-left-radius: 14px;
           border-bottom-right-radius: 14px;
       }
+
+      /* Contêiner do input e botões */
       #input-container {
           display: flex;
           align-items: center;
@@ -73,24 +81,31 @@
           background: #f4f4f4;
           gap: 8px;
       }
+
+      /* Feedback de nome de arquivo */
       #file-upload {
           display: none;
       }
+
       .clip-label {
           display: flex;
           align-items: center;
           cursor: pointer;
           margin-right: 6px;
       }
+
       .clip-label svg {
           width: 22px;
           height: 22px;
           fill: #8fa0b3;
           transition: fill 0.2s;
       }
+
       .clip-label:hover svg {
           fill: #3587ff;
       }
+
+      /* Campo de texto */
       #input-container input[type="text"] {
           flex: 1;
           padding: 12px;
@@ -98,6 +113,8 @@
           border-radius: 8px;
           font-size: 15px;
       }
+
+      /* Botão de enviar */
       #input-container button {
           margin-left: 5px;
           padding: 12px 20px;
@@ -109,9 +126,12 @@
           cursor: pointer;
           transition: background 0.3s ease;
       }
+
       #input-container button:hover {
           background: #0056b3;
       }
+
+      /* Preview do nome de arquivo */
       .filename-preview {
           font-size: 13px;
           color: #888;
@@ -129,7 +149,9 @@
         <div id="input-container">
             <label class="clip-label" for="file-upload" title="Anexar arquivo">
                 <!-- Ícone SVG do clipe -->
-                <svg viewBox="0 0 24 24"><path d="M17.657 6.343a6 6 0 010 8.485l-7.071 7.07a5 5 0 11-7.071-7.07l9.193-9.193a3 3 0 114.243 4.242l-9.193 9.193a1 1 0 11-1.414-1.414l9.193-9.193 1.414 1.414-9.193 9.193a3 3 0 104.243 4.243l7.071-7.071a4 4 0 10-5.656-5.656l-9.192 9.192 1.415 1.415 9.192-9.193a6 6 0 018.485 0z"></path></svg>
+                <svg viewBox="0 0 24 24">
+                  <path d="M17.657 6.343a6 6 0 010 8.485l-7.071 7.07a5 5 0 11-7.071-7.07l9.193-9.193a3 3 0 114.243 4.242l-9.193 9.193a1 1 0 11-1.414-1.414l9.193-9.193 1.414 1.414-9.193 9.193a3 3 0 104.243 4.243l7.071-7.071a4 4 0 10-5.656-5.656l-9.192 9.192 1.415 1.415 9.192-9.193a6 6 0 018.485 0z"></path>
+                </svg>
             </label>
             <input id="file-upload" type="file" />
             <span class="filename-preview" id="filename-preview"></span>
@@ -137,6 +159,7 @@
             <button id="send">Enviar</button>
         </div>
     </div>
+
     <script>
         const API_URL = "{% url 'agent_proxy' agent.id %}";
         const messagesDiv = document.getElementById("messages");
@@ -145,7 +168,7 @@
         const fileInput = document.getElementById("file-upload");
         const filenamePreview = document.getElementById("filename-preview");
 
-        // Mostra nome do arquivo selecionado
+        // Exibe o nome do arquivo selecionado
         fileInput.addEventListener('change', function() {
             filenamePreview.textContent = fileInput.files.length ? fileInput.files[0].name : '';
         });
