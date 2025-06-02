@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard de Agentes</title>
+</head>
+<body>
+  <h1>Dashboard de Agentes</h1>
+  <ul>
+    {% for agent in agents %}
+      <li>
+        <strong>{{ agent.title }}</strong> ({{ agent.id }})<br>
+        <a href="{% url 'agent_page' agent.id %}">Ver agente</a>
+      </li>
+    {% empty %}
+      <li>Nenhum agente cadastrado ainda.</li>
+    {% endfor %}
+  </ul>
+</body>
+</html>
